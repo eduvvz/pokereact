@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
+import CardPokemon from './components/CardPokemon';
 import './assets/App.scss';
 import { server } from './commons';
 
-
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {pokemonInput: ''};
@@ -43,6 +44,7 @@ class App extends Component {
   }
 
   render() {
+    const {pokemon, pokemonInput} = this.state
 
     return (
       <div>
@@ -53,11 +55,11 @@ class App extends Component {
             <div className="column">
               <div className="field">
               <div className="control">
-                <input 
-                  className="input is-large is-danger" 
+                <input
+                  className={"input is-large "+(pokemon ? "is-success":"is-danger")}
                   type="text" 
                   placeholder="Digite o nome do pokemon" 
-                  value={this.state.pokemonInput} onChange={this.handleChange}
+                  value={pokemonInput} onChange={this.handleChange}
                 />
               </div>
             </div>
@@ -66,7 +68,13 @@ class App extends Component {
           
           <div className="columns is-centered">
             <div className="column is-half">
-              
+              {pokemon ? 
+                <CardPokemon
+                  {...pokemon }
+                /> 
+                : 
+                null
+              }
             </div>
           </div>
           
